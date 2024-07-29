@@ -1,1 +1,2 @@
-# sqlalchemy-challenge
+completed an analysis on weather station database records containing a year's information on the amount of precipitation recorded by the weatherstations. The records were filtered and results were displayed to show the amount of precipitation recorded by the most active weather station. 
+Finally, an app was created to show a complete summarization of the precipitation and station records in addition to temperature fluctuation data recorded within the last year by the most active station.

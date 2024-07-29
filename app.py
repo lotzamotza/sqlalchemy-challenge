@@ -74,10 +74,15 @@ def temp_range(start, end=None):
         data = session.query(func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)).filter(Measurement.date >= start).filter(Measurement.date <= end).all()
     else:
         data = session.query(func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)).filter(Measurement.date >= start).all()
-    print(data)
-    stats = [(row[0], row[1], row[2]) for row in data]
-    print(stats)
-    return jsonify({'TMIN': stats[0], 'TAVG': stats[1], 'TMAX': stats[2]})
+    if data and data[0][0] is not None:
+        stats = {
+            'TMIN': data[0][0],
+            'TAVG': round(data[0][1], 2),
+            'TMAX': data[0][2]
+        }
+        return jsonify(stats)
+    else:
+        return jsonify({"error": "No data found for the given date range."}), 404
 
 
 if __name__ == '__main__':
